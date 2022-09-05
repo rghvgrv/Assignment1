@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>CRUD</title>
+    <script>
+        let db = new ProductDatabase();//create the obejct of the class
+        function displayAll()
+        {
+            const table = document.getElementById("tblRecords");
+            table.innerHTML = `<tr><th>Product ID</th><th>Product Name</th><th>Product Price</th></tr>`;
+            const data = db.data;
+            for (const prod of data) 
+            {
+                const rec = `<tr><td>${prod.id}</td><td>${prod.name}</td><td>${prod.price}</td></tr>`;
+                table.innerHTML += rec;
+            }
+        }
+        function addNewProduct()
+        {
+            const id = document.getElementById("prodId").value;
+            if(id == "")
+            {
+                alert("Enter a proper id")
+            }
+            else
+            {
+            const name = document.getElementById("prodName").value;
+            const price = document.getElementById("prodPrice").value;
+            const prod = new Product(id, name, price);
+            db.addRecord(prod);
+            alert("Record Added Successfully")
+            document.getElementById("prodId").value = ""
+            document.getElementById("prodName").value = ""
+            document.getElementById("prodPrice").value = ""
+            }
+        }
+        function deleteRecord()
+        {
+           var del =  prompt("Enter the Id to be Deleted")
+           db.removeRecord(del)
+           alert("Record is Deleted")
+        }
+        function updateProduct()
+        {
+            const id = prompt("Enter the Id to be updated")
+            const name = prompt("Enter the Name to be Updated")
+            const price =prompt("Enter the price to be Updated")
+            const prod = new Product(id, name, price);
+            console.log(id,name,price)
+            db.updateRecord(id,name,price)
+            alert("Record has been Updated")
+        }
+
+    </script>
+</head>
+<body>
+    <div class="card">
+        <h2>NEW PRODUCT</h2><br>
+        <p><input type="number" id="prodId" placeholder="Enter the Product ID"/></p><br>
+        <p><input type="text" id="prodName" placeholder="Enter the Product Name"/></p><br>
+        <p><input type="number" id="prodPrice" placeholder="Enter the Price of Product"/></p><br>
+        <p><button onclick="addNewProduct()">Add New Record</button></p><br>
+        <p><button onclick="deleteRecord()">Delete the Record</button></p><br>
+        <p><button onclick="updateProduct()">Update Record</button></p><br>
+        <p><button onclick="displayAll()">Display Record</button></p><br>
+    </div>
+    <div>
+        <table border="1" id="tblRecords">
+
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+body
+{
+    margin: 0;
+    padding: 0;
+    background-color:aqua;
+}
+
+div{
+    text-align: center;
+}
+
+table
+{
+    width: 50%;
+    border-collapse: collapse;
+    border-radius: 20px;
+}
+
+th
+{
+    background-color: aliceblue;
+}
+
